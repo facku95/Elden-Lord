@@ -33,17 +33,19 @@ kotlin {
         browser()
         binaries.executable()
     }
-    
+    /*
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
         binaries.executable()
-    }
+    }*/
     
     sourceSets {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -54,7 +56,25 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+            // Core de Kamel
+            implementation(libs.kamel.image)
+
+            // Core de Ktor (Necesario para Kamel)
+            implementation(libs.ktor.client.core)
         }
+        /*se requiere declarar el iosMain para poder operar con el
+        * engine de red de Ktor correspondiente a iOS que Kamel usa
+        * */
+        val iosMain by creating {
+            dependencies {
+                // Agregando la dependencia de red específica para iOS
+                implementation(libs.ktor.client.darwin)
+            }
+        }
+        getByName("iosArm64Main").dependsOn(iosMain)
+        getByName("iosSimulatorArm64Main").dependsOn(iosMain)
+
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
