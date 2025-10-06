@@ -26,6 +26,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import elden_lord.composeapp.generated.resources.Res
 import elden_lord.composeapp.generated.resources.compose_multiplatform
+import org.example.project.UI.composables.MenuGrid
 import org.example.project.UI.eldenColor
 import org.example.project.data.getImagenesHome
 
@@ -33,7 +34,7 @@ import org.example.project.data.getImagenesHome
 @Preview
 fun App() {
 
-    MaterialTheme {
+
         Column(
             modifier = Modifier
                 .background(color = eldenColor)
@@ -48,21 +49,13 @@ fun App() {
                 ) {
                     Image(painterResource(Res.drawable.Elden_lord_logo),
                         null,
-                        modifier = Modifier.size(210.dp)
+                        modifier = Modifier.size(190.dp)
                     )
 
                 }
 
-            LazyVerticalGrid(columns = GridCells.Fixed(2),
-                modifier = Modifier.fillMaxWidth().padding(8.dp)
-            ){
-                val data = getImagenesHome()
-                items(data){
-                    it->Image(painter=painterResource(it.resource)
-                    , contentDescription = it.name)
-                }
-            }
+            MenuGrid()
 
         }
-    }
+
 }
