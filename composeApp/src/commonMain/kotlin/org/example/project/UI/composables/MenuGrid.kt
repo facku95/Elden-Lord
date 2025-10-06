@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.sp
 import elden_lord.composeapp.generated.resources.Res
 import elden_lord.composeapp.generated.resources.magias
 import org.example.project.UI.eldenColor
+import org.example.project.UI.fondoCard
+import org.example.project.UI.mantequita
 import org.example.project.data.getImagenesHome
 import org.example.project.domain.classes.homeImages
 import org.jetbrains.compose.resources.painterResource
@@ -37,7 +39,7 @@ fun MenuGrid(){
     val data = getImagenesHome()
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = Modifier.background(color = eldenColor).fillMaxWidth().padding(8.dp)
+        modifier = Modifier.padding(top = 30.dp)
     ){
       items(data){ it->MenuGridCard(it)
       }
@@ -51,24 +53,29 @@ fun MenuGridCard(cards: homeImages){
     val capitalize = cards.name.replaceFirstChar {
         it.uppercase()
     }
-    Box(){
-    Card() {
+
+    Card(modifier = Modifier.padding(10.dp)) {
         //imagen
-        Image(modifier = Modifier.background(color = eldenColor).fillMaxWidth().size(110.dp),
+        Image(modifier = Modifier.background(color = fondoCard)
+            .fillMaxWidth()
+            .size(150.dp)
+            ,
             painter = painterResource(cards.resource),
             contentDescription = null
         )
         //texto
-        Column(modifier = Modifier.background(color = eldenColor).fillMaxWidth(),
+        Column(modifier = Modifier.background(color = mantequita).fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
             ) {
             Text(text = capitalize,
                 fontSize = 24.sp,
-                modifier = Modifier.background(Color.White))
+                modifier = Modifier
+                    .background(color = mantequita)
+                    .padding(5.dp))
 
         }
     }
 
-    }
+
 
 }
