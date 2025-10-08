@@ -17,6 +17,9 @@ kotlinx-coroutines = "1.10.2"
 #integramos Kamel en reemplazo de Coil por problemas de config
 kamel = "0.9.0" # Usa la última versión estable (revisa si hay una más nueva)
 ktor = "2.3.9"  # Version de Ktor (necesario para Kamel en KMP)
+compose-navigation = "2.9.0-rc02"
+koin-compose = "1.1.2"
+koin-core = "3.5.3"
 
 
 [libraries]
@@ -37,6 +40,12 @@ kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamel" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" } # Solo para iOS
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" } # Solo para Android/JVM
+#navigation multiplatform
+jetbrains-compose-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
+#Koin para inyeccion de dependencias
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-core" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

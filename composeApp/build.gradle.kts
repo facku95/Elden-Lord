@@ -59,9 +59,15 @@ kotlin {
 
             // Core de Kamel
             implementation(libs.kamel.image)
-
             // Core de Ktor (Necesario para Kamel)
             implementation(libs.ktor.client.core)
+            //navegacion compose
+            implementation(libs.jetbrains.compose.navigation)
+
+            //koin para inyeccion
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose.viewmodel)
+
         }
         /*se requiere declarar el iosMain para poder operar con el
         * engine de red de Ktor correspondiente a iOS que Kamel usa

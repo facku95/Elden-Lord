@@ -2,6 +2,7 @@ package org.example.project.UI.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,7 +15,9 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,45 +38,43 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun MenuGrid(){
+fun MenuGrid(onBotonClick: () -> Unit){
     val data = getImagenesHome()
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = Modifier.padding(top = 30.dp)
+        modifier = Modifier.padding(top = 10.dp)
     ){
-      items(data){ it->MenuGridCard(it)
+      items(data){ it->MenuGridCard(it,onBotonClick)
       }
     }
 }
 
-
-
 @Composable
-fun MenuGridCard(cards: homeImages){
+fun MenuGridCard(cards: homeImages,onBotonClick: () -> Unit){
     val capitalize = cards.name.replaceFirstChar {
         it.uppercase()
     }
 
-    Card(modifier = Modifier.padding(10.dp)) {
-        //imagen
-        Image(modifier = Modifier.background(color = fondoCard)
-            .fillMaxWidth()
-            .size(150.dp)
-            ,
-            painter = painterResource(cards.resource),
-            contentDescription = null
-        )
-        //texto
-        Column(modifier = Modifier.background(color = mantequita).fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+    OutlinedCard(modifier = Modifier.padding(10.dp).clickable(onClick = onBotonClick)) {
+        Column(modifier = Modifier.background(color = mantequita),
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            //imagen
+            Image(modifier = Modifier.background(color = fondoCard)
+                .fillMaxWidth()
+                .size(100.dp)
+                ,
+                painter = painterResource(cards.resource),
+                contentDescription = null
+            )
+            //texto
             Text(text = capitalize,
-                fontSize = 24.sp,
+                fontSize = 20.sp,
                 modifier = Modifier
                     .background(color = mantequita)
-                    .padding(5.dp))
+                    .padding(4.dp))
 
         }
+
     }
 
 
