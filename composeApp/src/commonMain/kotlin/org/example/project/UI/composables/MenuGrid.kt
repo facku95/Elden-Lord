@@ -27,6 +27,7 @@ import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import elden_lord.composeapp.generated.resources.Res
 import elden_lord.composeapp.generated.resources.magias
 import org.example.project.UI.eldenColor
@@ -38,19 +39,26 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun MenuGrid(onBotonClick: () -> Unit){
+fun MenuGrid(navController: NavController){
     val data = getImagenesHome()
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = Modifier.padding(top = 10.dp)
     ){
-      items(data){ it->MenuGridCard(it,onBotonClick)
-      }
+
+      items(data){
+          it->MenuGridCard(it,
+          onBotonClick={navController.navigate(it.name)})}
+        // la lambda de arriba utiliza el atribuno name de cada elemento
+        // del card para usarlo como ruta para que el navhost pueda navegar
+        // las rutas están almacedanas como un data class getImagenesHome
     }
 }
 
 @Composable
 fun MenuGridCard(cards: homeImages,onBotonClick: () -> Unit){
+    //Capitaliza el string del nombre de la card porque se reutiliza para marcar
+    //la ruta de las vistas al hacer click
     val capitalize = cards.name.replaceFirstChar {
         it.uppercase()
     }

@@ -14,14 +14,13 @@ import org.example.project.UI.viewmodels.ArmasScreenViewModel
 
 fun App() {
  val navControl = rememberNavController()
-    val botonClick={navControl.navigate("armas")}
+
     var ArmasviewModel : ArmasScreenViewModel
 
     NavHost(navControl,startDestination = "home" ){
         composable(route="home"){
             HomeScreen(
-                navControl,
-                botonClick
+                navControl
             )
         }
         composable(route="armas"){

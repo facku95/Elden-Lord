@@ -20,9 +20,7 @@ import org.example.project.UI.viewmodels.ArmasScreenViewModel
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun HomeScreen(navController: NavHostController,
-
-               onBotonClick: () -> Unit){
+fun HomeScreen(navController: NavHostController){
     Column(
         modifier = Modifier
             .background(color = eldenColor)
@@ -42,7 +40,7 @@ fun HomeScreen(navController: NavHostController,
 
         }
 
-        MenuGrid(onBotonClick)
+        MenuGrid(navController)
 
     }
 }
