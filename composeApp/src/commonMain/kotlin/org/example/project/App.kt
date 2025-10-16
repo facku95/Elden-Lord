@@ -6,7 +6,11 @@ import androidx.navigation.compose.composable
 import org.example.project.UI.screens.HomeScreen
 import androidx.navigation.compose.rememberNavController
 import org.example.project.UI.screens.ArmasScreen
-import org.example.project.UI.viewmodels.ArmasScreenViewModel
+import org.example.project.UI.viewmodels.ArmasViewModel
+import org.example.project.UI.viewmodels.appModule
+import org.koin.core.context.startKoin
+import org.koin.compose.viewmodel.koinViewModel
+
 
 
 @Suppress("SuspiciousIndentation")
@@ -14,8 +18,10 @@ import org.example.project.UI.viewmodels.ArmasScreenViewModel
 
 fun App() {
  val navControl = rememberNavController()
+    startKoin {
+        modules(appModule)
+    }
 
-    var ArmasviewModel : ArmasScreenViewModel
 
     NavHost(navControl,startDestination = "home" ){
         composable(route="home"){
@@ -24,7 +30,8 @@ fun App() {
             )
         }
         composable(route="armas"){
-            ArmasScreen()
+           val viewModel: ArmasViewModel = koinViewModel()
+            ArmasScreen(viewModel)
         }
         composable(route="npc"){
 

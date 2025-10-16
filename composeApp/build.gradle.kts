@@ -1,6 +1,8 @@
+import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -11,9 +13,13 @@ plugins {
 }
 
 kotlin {
+
+
+
     androidTarget {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
+
         }
     }
     
@@ -46,6 +52,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
 
             implementation(libs.ktor.client.okhttp)
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -54,32 +61,33 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodelCompose)
-            implementation(libs.androidx.lifecycle.runtimeCompose)
 
             // Core de Kamel
             implementation(libs.kamel.image)
             // Core de Ktor (Necesario para Kamel)
             implementation(libs.ktor.client.core)
             //navegacion compose
-            implementation(libs.jetbrains.compose.navigation)
+
+            implementation(libs.navigation.compose)
 
             //koin para inyeccion
             implementation(libs.koin.core)
+            implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
 
         }
-        /*se requiere declarar el iosMain para poder operar con el
-        * engine de red de Ktor correspondiente a iOS que Kamel usa
-        * */
+
         val iosMain by creating {
             dependencies {
-                // Agregando la dependencia de red específica para iOS
+                // Agregar la dependencia específica de iOS aquí
+                dependsOn(commonMain.get())
                 implementation(libs.ktor.client.darwin)
             }
         }
         getByName("iosArm64Main").dependsOn(iosMain)
         getByName("iosSimulatorArm64Main").dependsOn(iosMain)
+
+
 
         commonTest.dependencies {
             implementation(libs.kotlin.test)

@@ -16,7 +16,6 @@ import elden_lord.composeapp.generated.resources.Elden_lord_logo
 import elden_lord.composeapp.generated.resources.Res
 import org.example.project.UI.composables.MenuGrid
 import org.example.project.UI.eldenColor
-import org.example.project.UI.viewmodels.ArmasScreenViewModel
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
