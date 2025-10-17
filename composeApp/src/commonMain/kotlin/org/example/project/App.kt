@@ -11,34 +11,40 @@ import org.example.project.UI.viewmodels.appModule
 import org.koin.core.context.startKoin
 import org.koin.compose.viewmodel.koinViewModel
 
+import org.koin.compose.KoinApplication
 
 
 @Suppress("SuspiciousIndentation")
 @Composable
 
 fun App() {
- val navControl = rememberNavController()
-    startKoin {
-        modules(appModule)
-    }
+
+    KoinApplication(
+        application = {modules(appModule)}
+    ){
+
+        val navControl = rememberNavController()
+
+        NavHost(navControl,startDestination = "home" ){
+            composable(route="home"){
+                HomeScreen(
+                    navControl
+                )
+            }
+            composable(route="armas"){
+
+                ArmasScreen()
+            }
+            composable(route="npc"){
+
+            }
+            composable(route="cenizas"){
+
+            }
 
 
-    NavHost(navControl,startDestination = "home" ){
-        composable(route="home"){
-            HomeScreen(
-                navControl
-            )
         }
-        composable(route="armas"){
-           val viewModel: ArmasViewModel = koinViewModel()
-            ArmasScreen(viewModel)
-        }
-        composable(route="npc"){
 
-        }
-        composable(route="cenizas"){
-
-        }
 
 
     }
