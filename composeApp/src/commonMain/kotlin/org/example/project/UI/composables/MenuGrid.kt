@@ -46,9 +46,9 @@ fun MenuGrid(navController: NavController){
         modifier = Modifier.padding(top = 10.dp)
     ){
 
-      items(data){
-          it->MenuGridCard(it,
-          onBotonClick={navController.navigate(it.name)})}
+        items(data){
+                it->MenuGridCard(it,
+            onBotonClick={navController.navigate(it.name)})}
         // la lambda de arriba utiliza el atribuno name de cada elemento
         // del card para usarlo como ruta para que el navhost pueda navegar
         // las rutas están almacedanas como un data class getImagenesHome

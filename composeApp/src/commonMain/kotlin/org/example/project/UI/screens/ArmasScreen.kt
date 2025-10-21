@@ -1,45 +1,82 @@
 package org.example.project.UI.screens
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
+import org.example.project.UI.viewmodels.ArmasScreenViewModel
+
+
+
+
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
-import androidx.compose.material3.OutlinedCard
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.BlendMode.Companion.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import org.example.project.UI.viewmodels.ArmasScreenViewModel
-import org.example.project.UI.viewmodels.ArmasViewModel
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.koin.compose.viewmodel.koinViewModel
+import coil3.compose.AsyncImage
+import io.kamel.image.KamelImage
+import io.kamel.image.asyncPainterResource
+import org.example.project.domain.classes.Arma
+//import org.example.project.ui.viewmodels.ArmasScreenViewModel
 
-@Preview
 @Composable
-fun ArmasScreen(){
-    val viewModel : ArmasScreenViewModel = koinViewModel()
+fun ArmasScreen(viewModel: ArmasScreenViewModel) {
     val state by viewModel.state.collectAsState()
 
-    OutlinedCard {
-        Text(text = "ARMAS" , fontSize = 50.sp)
-    }
-    Spacer(modifier = Modifier.size(10.dp))
-
-    LazyColumn {
-        val lista = state.armas
-        items(lista){
-            lista ->
-            Card {
-                Text(text = lista.nombre.toString())
-                Text(text = lista.descripcion.toString())
-                Text(text = lista.damage.toString())
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        when {
+            state.isLoading -> {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(alignment = androidx.compose.ui.Alignment.Center)
+                )
             }
+
+            state.error != null -> {
+                Text(
+                    text = "Error: ${state.error}",
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.align(alignment = androidx.compose.ui.Alignment.Center)
+                )
+            }
+
+            else -> {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(state.armas) { arma ->
+                        ArmaItem(arma)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ArmaItem(arma: Arma) {
+    Row(modifier = Modifier.padding(8.dp)) {
+        KamelImage(
+            resource = asyncPainterResource(arma.image ?: "https://via.placeholder.com/150"),
+            contentDescription = arma.name,
+            modifier = Modifier
+                .size(80.dp)
+                .clip(RoundedCornerShape(8.dp)),
+            onFailure = {
+                Text("Error cargando imagen")
+            }
+        )
+        Spacer(Modifier.width(8.dp))
+        Column {
+            Text(arma.name, fontWeight = FontWeight.Bold)
+            Text(arma.description ?: "Sin descripción")
         }
     }
 }

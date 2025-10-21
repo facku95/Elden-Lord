@@ -9,6 +9,9 @@ androidx-core = "1.17.0"
 androidx-espresso = "3.7.0"
 androidx-lifecycle = "2.9.4"
 androidx-testExt = "1.3.0"
+coilCompose = "3.3.0"
+coilComposeVersion = "2.7.0"
+coilKtCoilCompose = "2.4.0"
 composeHotReload = "1.0.0-beta07"
 composeMultiplatform = "1.9.0"
 junit = "4.13.2"
@@ -16,13 +19,26 @@ kotlin = "2.2.10"
 kotlinx-coroutines = "1.10.2"
 #integramos Kamel en reemplazo de Coil por problemas de config
 kamel = "0.9.0" # Usa la última versión estable (revisa si hay una más nueva)
+kotlinxSerializationJson = "1.9.0"
+kotlinxSerializationJsonVersion = "1.6.0"
 ktor = "2.3.9"  # Version de Ktor (necesario para Kamel en KMP)
 
 koin = "4.0.0-RC1"
 
+ktorClientContentNegotiation = "2.3.11"
+ktorClientCore = "3.6.0"
+ktorClientCoreVersion = "2.3.11"
+ktorClientDarwin = "2.3.11"
+ktorClientOkhttp = "3.6.0"
+ktorClientOkhttpVersion = "2.3.11"
+ktorSerializationKotlinxJson = "2.3.11"
+napier = "2.7.1"
 navigationCompose = "2.8.0-alpha10"
 
 [libraries]
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-compose-v240 = { module = "io.coil-kt:coil-compose", version.ref = "coilKtCoilCompose" }
+coil-kt-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { module = "junit:junit", version.ref = "junit" }
@@ -37,10 +53,22 @@ kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-s
 
 #libreria de Kamel
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamel" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinx-serialization-json-v160 = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJsonVersion" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientCore" }
+ktor-client-content-negotiation-v2311 = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientContentNegotiation" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-core-v2311 = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCoreVersion" }
+ktor-client-core-v360 = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" } # Solo para iOS
+ktor-client-darwin-v2311 = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorClientDarwin" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" } # Solo para Android/JVM
 #navigation multiplatform
+ktor-client-okhttp-v2311 = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorClientOkhttpVersion" }
+ktor-client-okhttp-v360 = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorClientOkhttp" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorClientCore" }
+ktor-serialization-kotlinx-json-v2311 = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorSerializationKotlinxJson" }
+napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
 #Koin para inyeccion de dependencias

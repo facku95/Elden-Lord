@@ -1,16 +1,10 @@
 package org.example.project.UI.viewmodels
 
 
-import org.example.project.data.getImagenesHome
-import org.example.project.domain.classes.Arma
-import org.koin.core.module.dsl.factoryOf
-import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
+//import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.dsl.viewModel
 
-
-val appModule = module{
-
-    singleOf(::ArmasScreenViewModel)
-
-
+val appModule = module {
+    viewModel { ArmasScreenViewModel() }
 }
