@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import elden_lord.composeapp.generated.resources.Res
 import elden_lord.composeapp.generated.resources.magias
 import org.example.project.UI.eldenColor
@@ -39,52 +40,46 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun MenuGrid(navController: NavController){
+fun MenuGrid(navController: NavHostController) {
     val data = getImagenesHome()
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        modifier = Modifier.padding(top = 10.dp)
-    ){
-
-        items(data){
-                it->MenuGridCard(it,
-            onBotonClick={navController.navigate(it.name)})}
-        // la lambda de arriba utiliza el atribuno name de cada elemento
-        // del card para usarlo como ruta para que el navhost pueda navegar
-        // las rutas están almacedanas como un data class getImagenesHome
+    LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = Modifier.padding(top = 10.dp)) {
+        items(data) { it ->
+            MenuGridCard(it) {
+                navController.navigate(it.name) // La ruta debe coincidir con NavHost
+            }
+        }
     }
 }
 
 @Composable
-fun MenuGridCard(cards: homeImages,onBotonClick: () -> Unit){
-    //Capitaliza el string del nombre de la card porque se reutiliza para marcar
-    //la ruta de las vistas al hacer click
-    val capitalize = cards.name.replaceFirstChar {
-        it.uppercase()
-    }
+fun MenuGridCard(cards: homeImages, onBotonClick: () -> Unit) {
+    // Solo para mostrar, no para navegar
+    val displayName = cards.name.replaceFirstChar { it.uppercase() }
 
-    OutlinedCard(modifier = Modifier.padding(10.dp).clickable(onClick = onBotonClick)) {
-        Column(modifier = Modifier.background(color = mantequita),
-            horizontalAlignment = Alignment.CenterHorizontally) {
-            //imagen
-            Image(modifier = Modifier.background(color = fondoCard)
-                .fillMaxWidth()
-                .size(100.dp)
-                ,
+    OutlinedCard(
+        modifier = Modifier
+            .padding(10.dp)
+            .clickable(onClick = onBotonClick)
+    ) {
+        Column(
+            modifier = Modifier.background(color = mantequita),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                modifier = Modifier
+                    .background(color = fondoCard)
+                    .fillMaxWidth()
+                    .size(100.dp),
                 painter = painterResource(cards.resource),
                 contentDescription = null
             )
-            //texto
-            Text(text = capitalize,
+            Text(
+                text = displayName, // solo para mostrar
                 fontSize = 20.sp,
                 modifier = Modifier
                     .background(color = mantequita)
-                    .padding(4.dp))
-
+                    .padding(4.dp)
+            )
         }
-
     }
-
-
-
 }

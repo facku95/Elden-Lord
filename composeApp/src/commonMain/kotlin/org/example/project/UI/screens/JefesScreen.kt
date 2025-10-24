@@ -1,10 +1,5 @@
 package org.example.project.UI.screens
 
-import org.example.project.UI.viewmodels.ArmasScreenViewModel
-
-
-
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -14,23 +9,21 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.BlendMode.Companion.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import coil3.compose.AsyncImage
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import org.example.project.domain.classes.Arma
-//import org.example.project.ui.viewmodels.ArmasScreenViewModel
+import org.example.project.domain.classes.Jefe
+import org.example.project.UI.viewmodels.JefesScreenViewModel
 import org.example.project.UI.composables.ScreenHeader
 @Composable
-fun ArmasScreen(viewModel: ArmasScreenViewModel, navController: NavHostController) {
+fun JefesScreen(viewModel: JefesScreenViewModel, navController: NavHostController) {
     val state by viewModel.state.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
 
-        ScreenHeader(title = "Armas", onBackClick = { navController.popBackStack() })
+        ScreenHeader(title = "Jefes", onBackClick = { navController.popBackStack() })
 
         Box(
             modifier = Modifier
@@ -48,8 +41,8 @@ fun ArmasScreen(viewModel: ArmasScreenViewModel, navController: NavHostControlle
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    items(state.armas) { arma ->
-                        ArmaItem(arma)
+                    items(state.jefes) { jefe ->
+                        JefeItem(jefe)
                     }
                 }
             }
@@ -58,22 +51,20 @@ fun ArmasScreen(viewModel: ArmasScreenViewModel, navController: NavHostControlle
 }
 
 @Composable
-fun ArmaItem(arma: Arma) {
+fun JefeItem(jefe: Jefe) {
     Row(modifier = Modifier.padding(8.dp)) {
         KamelImage(
-            resource = asyncPainterResource(arma.image ?: "https://via.placeholder.com/150"),
-            contentDescription = arma.name,
+            resource = asyncPainterResource(jefe.image ?: "https://via.placeholder.com/150"),
+            contentDescription = jefe.name ?: "Sin nombre",
             modifier = Modifier
                 .size(80.dp)
                 .clip(RoundedCornerShape(8.dp)),
-            onFailure = {
-                Text("Error cargando imagen")
-            }
+            onFailure = { Text("Error cargando imagen") }
         )
         Spacer(Modifier.width(8.dp))
         Column {
-            Text(arma.name, fontWeight = FontWeight.Bold)
-            Text(arma.description ?: "Sin descripción")
+            Text(jefe.name ?: "Sin nombre", fontWeight = FontWeight.Bold)
+            Text(jefe.description ?: "Sin descripción")
         }
     }
 }
