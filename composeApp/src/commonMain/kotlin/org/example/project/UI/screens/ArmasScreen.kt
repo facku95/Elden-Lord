@@ -1,5 +1,6 @@
 package org.example.project.UI.screens
 
+import androidx.compose.foundation.clickable
 import org.example.project.UI.viewmodels.ArmasScreenViewModel
 
 
@@ -59,20 +60,33 @@ fun ArmasScreen(viewModel: ArmasScreenViewModel, navController: NavHostControlle
 
 @Composable
 fun ArmaItem(arma: Arma) {
+    var reloadKey by remember { mutableStateOf(0) } // Para forzar recarga
+
     Row(modifier = Modifier.padding(8.dp)) {
-        KamelImage(
-            resource = asyncPainterResource(arma.image ?: "https://via.placeholder.com/150"),
-            contentDescription = arma.name,
+        Box(
             modifier = Modifier
                 .size(80.dp)
                 .clip(RoundedCornerShape(8.dp)),
-            onFailure = {
-                Text("Error cargando imagen")
-            }
-        )
+            contentAlignment = Alignment.Center
+        ) {
+            KamelImage(
+                resource = asyncPainterResource(arma.image ?: "https://via.placeholder.com/150", key = reloadKey),
+                contentDescription = arma.name.ifEmpty { "Arma desconocida" },
+                onLoading = { CircularProgressIndicator(modifier = Modifier.size(24.dp)) },
+                onFailure = {
+                    Text(
+                        "🔄 Reintentar",
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.clickable { reloadKey++ } // recarga al tocar
+                    )
+                }
+            )
+        }
+
         Spacer(Modifier.width(8.dp))
+
         Column {
-            Text(arma.name, fontWeight = FontWeight.Bold)
+            Text(arma.name.ifEmpty { "Sin nombre" }, fontWeight = FontWeight.Bold)
             Text(arma.description ?: "Sin descripción")
         }
     }

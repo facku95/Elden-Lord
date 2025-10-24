@@ -1,5 +1,6 @@
 package org.example.project.UI.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -49,19 +50,37 @@ fun MagiasScreen(viewModel: MagiasScreenViewModel, navController: NavHostControl
 
 @Composable
 fun MagiaCard(magia: Magia) {
+    var reloadKey by remember { mutableStateOf(0) } // Para forzar recarga
+
     Row(modifier = Modifier.padding(8.dp)) {
-        KamelImage(
-            resource = asyncPainterResource(magia.image ?: "https://via.placeholder.com/150"),
-            contentDescription = magia.name,
+        Box(
             modifier = Modifier
                 .size(80.dp)
                 .clip(RoundedCornerShape(8.dp)),
-            onFailure = { Text("Error cargando imagen") }
-        )
+            contentAlignment = Alignment.Center
+        ) {
+            KamelImage(
+                resource = asyncPainterResource(magia.image ?: "https://via.placeholder.com/150", key = reloadKey),
+                contentDescription = magia.name.ifEmpty { "Magia desconocida" },
+                onLoading = { CircularProgressIndicator(modifier = Modifier.size(24.dp)) },
+                onFailure = {
+                    Text(
+                        "🔄 Reintentar",
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.clickable {
+                            reloadKey++ // Cambia la key y fuerza recarga
+                        }
+                    )
+                }
+            )
+        }
+
         Spacer(Modifier.width(8.dp))
         Column {
-            Text(magia.name, fontWeight = FontWeight.Bold)
+            Text(magia.name.ifEmpty { "Sin nombre" }, fontWeight = FontWeight.Bold)
             Text(magia.description ?: "Sin descripción")
         }
     }
 }
+
+

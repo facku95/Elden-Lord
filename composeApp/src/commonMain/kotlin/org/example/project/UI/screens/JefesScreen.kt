@@ -1,5 +1,6 @@
 package org.example.project.UI.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -52,19 +53,38 @@ fun JefesScreen(viewModel: JefesScreenViewModel, navController: NavHostControlle
 
 @Composable
 fun JefeItem(jefe: Jefe) {
+    var reloadKey by remember { mutableStateOf(0) } // Para forzar recarga
+
     Row(modifier = Modifier.padding(8.dp)) {
-        KamelImage(
-            resource = asyncPainterResource(jefe.image ?: "https://via.placeholder.com/150"),
-            contentDescription = jefe.name ?: "Sin nombre",
+        Box(
             modifier = Modifier
                 .size(80.dp)
                 .clip(RoundedCornerShape(8.dp)),
-            onFailure = { Text("Error cargando imagen") }
-        )
+            contentAlignment = Alignment.Center
+        ) {
+            KamelImage(
+                resource = asyncPainterResource(jefe.image ?: "https://via.placeholder.com/150", key = reloadKey),
+                contentDescription = jefe.name.ifEmpty { "Jefe desconocido" },
+                onLoading = { CircularProgressIndicator(modifier = Modifier.size(24.dp)) },
+                onFailure = {
+                    Text(
+                        "🔄 Reintentar",
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.clickable {
+                            reloadKey++ // Cambia la key y fuerza recarga
+                        }
+                    )
+                }
+            )
+        }
+
         Spacer(Modifier.width(8.dp))
         Column {
-            Text(jefe.name ?: "Sin nombre", fontWeight = FontWeight.Bold)
+            Text(jefe.name.ifEmpty { "Sin nombre" }, fontWeight = FontWeight.Bold)
             Text(jefe.description ?: "Sin descripción")
         }
     }
 }
+
+
+
