@@ -29,9 +29,11 @@ import io.kamel.image.asyncPainterResource
 import org.example.project.UI.composables.ScreenHeader
 import org.example.project.UI.viewmodels.CenizasScreenViewModel
 import org.example.project.domain.classes.Ceniza
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun CenizasScreen(viewModel: CenizasScreenViewModel, navController: NavHostController) {
+fun CenizasScreen(navController: NavHostController) {
+    val viewModel: CenizasScreenViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {

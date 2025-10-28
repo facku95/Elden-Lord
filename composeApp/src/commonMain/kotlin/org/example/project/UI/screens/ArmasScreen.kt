@@ -18,14 +18,17 @@ import androidx.compose.ui.graphics.BlendMode.Companion.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import coil3.compose.AsyncImage
+
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import org.example.project.domain.classes.Arma
 //import org.example.project.ui.viewmodels.ArmasScreenViewModel
 import org.example.project.UI.composables.ScreenHeader
+import org.koin.compose.viewmodel.koinViewModel
+
 @Composable
-fun ArmasScreen(viewModel: ArmasScreenViewModel, navController: NavHostController) {
+fun ArmasScreen(navController: NavHostController) {
+    val viewModel : ArmasScreenViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {

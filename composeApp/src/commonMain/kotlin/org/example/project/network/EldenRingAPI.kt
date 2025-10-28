@@ -23,7 +23,7 @@ class EldenRingAPI {
 
     suspend fun getWeapons(): List<Arma> {
         return try {
-            val response: ListaArmas = client.get("https://eldenring.fanapis.com/api/weapons?limit=45").body()
+            val response: ListaArmas = client.get("https://eldenring.fanapis.com/api/weapons?limit=20").body()
             response.data
         } catch (e: Exception) {
             println("DEBUG: Error al obtener armas -> ${e.message}")

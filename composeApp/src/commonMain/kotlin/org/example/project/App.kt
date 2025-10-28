@@ -17,44 +17,55 @@ import org.example.project.UI.viewmodels.ItemsScreenViewModel
 import org.example.project.UI.viewmodels.JefesScreenViewModel
 import org.example.project.UI.viewmodels.MagiasScreenViewModel
 import org.example.project.UI.viewmodels.NPCScreenViewModel
+import org.example.project.UI.viewmodels.appModule
+import org.koin.compose.KoinApplication
 
 @Composable
 fun App() {
     val navControl = rememberNavController()
 
-    NavHost(navController = navControl, startDestination = "home") {
+    KoinApplication(
+        application = {modules(appModule)}
+    ){
+        NavHost(navController = navControl, startDestination = "home") {
 
-        composable("home") { HomeScreen(navControl) }
+            composable("home") { HomeScreen(navControl) }
 
-        composable("armas") {
-            val viewModel = ArmasScreenViewModel()
-            ArmasScreen(viewModel, navControl)
-        }
+            composable("armas") {
 
-        composable("jefes") {
-            val viewModel = JefesScreenViewModel()
-            JefesScreen(viewModel, navControl)
-        }
+                ArmasScreen( navControl)
+            }
 
-        composable("items") {
-            val viewModel = ItemsScreenViewModel()  // instancia directa, sin Koin
-            ItemsScreen(viewModel = viewModel, navController = navControl)
-        }
+            composable("jefes") {
 
-        composable("npc") {
-            val viewModel = NPCScreenViewModel()
-            NPCScreen(viewModel = viewModel, navController = navControl)
-        }
+                JefesScreen( navControl)
+            }
 
-        composable("cenizas") {
-            val viewModel = CenizasScreenViewModel()
-            CenizasScreen(viewModel = viewModel, navController = navControl)
-        }
+            composable("items") {
 
-        composable("magias") {
-            val viewModel = MagiasScreenViewModel()
-            MagiasScreen(viewModel = viewModel, navController = navControl)
+                ItemsScreen( navController = navControl)
+            }
+
+            composable("npc") {
+
+                NPCScreen( navController = navControl)
+            }
+
+            composable("cenizas") {
+
+                CenizasScreen( navController = navControl)
+            }
+
+            composable("magias") {
+
+                MagiasScreen( navController = navControl)
+            }
         }
     }
+
+
+
+
+
 }
 

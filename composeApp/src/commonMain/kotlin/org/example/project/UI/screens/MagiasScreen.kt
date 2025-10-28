@@ -17,9 +17,11 @@ import io.kamel.image.asyncPainterResource
 import org.example.project.domain.classes.Magia
 import org.example.project.UI.composables.ScreenHeader
 import org.example.project.UI.viewmodels.MagiasScreenViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun MagiasScreen(viewModel: MagiasScreenViewModel, navController: NavHostController) {
+fun MagiasScreen(navController: NavHostController) {
+    val viewModel: MagiasScreenViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {

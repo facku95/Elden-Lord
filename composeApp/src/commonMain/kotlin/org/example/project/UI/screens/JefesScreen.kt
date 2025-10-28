@@ -17,8 +17,11 @@ import io.kamel.image.asyncPainterResource
 import org.example.project.domain.classes.Jefe
 import org.example.project.UI.viewmodels.JefesScreenViewModel
 import org.example.project.UI.composables.ScreenHeader
+import org.koin.compose.viewmodel.koinViewModel
+
 @Composable
-fun JefesScreen(viewModel: JefesScreenViewModel, navController: NavHostController) {
+fun JefesScreen( navController: NavHostController) {
+    val viewModel: JefesScreenViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {

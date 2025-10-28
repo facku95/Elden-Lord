@@ -29,9 +29,11 @@ import io.kamel.image.asyncPainterResource
 import org.example.project.UI.composables.ScreenHeader
 import org.example.project.UI.viewmodels.NPCScreenViewModel
 import org.example.project.domain.classes.NPC
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun NPCScreen(viewModel: NPCScreenViewModel, navController: NavHostController) {
+fun NPCScreen(navController: NavHostController) {
+    val viewModel: NPCScreenViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
