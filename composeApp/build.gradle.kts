@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
 }
 
 kotlin {
@@ -57,31 +58,45 @@ kotlin {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
+            implementation(compose.runtime)
+            implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-
+            //dep ktor
+            implementation(libs.ktor.client.core.v2311)
+            implementation(libs.koin.core)
             // Core de Kamel
             implementation(libs.kamel.image)
             // Core de Ktor (Necesario para Kamel)
-            implementation(libs.ktor.client.core)
+            //implementation(libs.ktor.client.core)
             //navegacion compose
-
+            implementation(libs.napier)
             implementation(libs.navigation.compose)
 
             //koin para inyeccion
-            implementation(libs.koin.core)
+
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            // para serializar
+            implementation(libs.ktor.client.content.negotiation.v2311)
+            implementation(libs.ktor.serialization.kotlinx.json.v2311)
 
+            implementation("io.coil-kt.coil3:coil-compose:3.0.0-alpha06")
+
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.8.2")
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
         }
 
         val iosMain by creating {
             dependencies {
                 // Agregar la dependencia específica de iOS aquí
                 dependsOn(commonMain.get())
-                implementation(libs.ktor.client.darwin)
+                //implementation(libs.ktor.client.darwin)
+                // dep ktor
+                implementation(libs.ktor.client.darwin.v2311)
+
             }
         }
         getByName("iosArm64Main").dependsOn(iosMain)

@@ -1,54 +1,71 @@
 package org.example.project
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import org.example.project.UI.screens.HomeScreen
 import androidx.navigation.compose.rememberNavController
+import org.example.project.UI.screens.HomeScreen
 import org.example.project.UI.screens.ArmasScreen
-import org.example.project.UI.viewmodels.ArmasViewModel
+import org.example.project.UI.screens.CenizasScreen
+import org.example.project.UI.screens.JefesScreen
+import org.example.project.UI.screens.ItemsScreen
+import org.example.project.UI.screens.MagiasScreen
+import org.example.project.UI.screens.NPCScreen
+import org.example.project.UI.viewmodels.ArmasScreenViewModel
+import org.example.project.UI.viewmodels.CenizasScreenViewModel
+import org.example.project.UI.viewmodels.ItemsScreenViewModel
+import org.example.project.UI.viewmodels.JefesScreenViewModel
+import org.example.project.UI.viewmodels.MagiasScreenViewModel
+import org.example.project.UI.viewmodels.NPCScreenViewModel
 import org.example.project.UI.viewmodels.appModule
-import org.koin.core.context.startKoin
-import org.koin.compose.viewmodel.koinViewModel
-
 import org.koin.compose.KoinApplication
 
-
-@Suppress("SuspiciousIndentation")
 @Composable
-
 fun App() {
+    val navControl = rememberNavController()
 
     KoinApplication(
         application = {modules(appModule)}
     ){
+        NavHost(navController = navControl, startDestination = "home") {
 
-        val navControl = rememberNavController()
+            composable("home") { HomeScreen(navControl) }
 
-        NavHost(navControl,startDestination = "home" ){
-            composable(route="home"){
-                HomeScreen(
-                    navControl
-                )
-            }
-            composable(route="armas"){
+            composable("armas") {
 
-                ArmasScreen()
-            }
-            composable(route="npc"){
-
-            }
-            composable(route="cenizas"){
-
+                ArmasScreen( navControl)
             }
 
+            composable("jefes") {
 
+                JefesScreen( navControl)
+            }
+
+            composable("items") {
+
+                ItemsScreen( navController = navControl)
+            }
+
+            composable("npc") {
+
+                NPCScreen( navController = navControl)
+            }
+
+            composable("cenizas") {
+
+                CenizasScreen( navController = navControl)
+            }
+
+            composable("magias") {
+
+                MagiasScreen( navController = navControl)
+            }
         }
-
-
-
     }
 
 
 
+
+
 }
+
