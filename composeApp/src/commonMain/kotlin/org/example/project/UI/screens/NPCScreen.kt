@@ -94,7 +94,8 @@ fun NPCCard(npc: NPC) {
         Spacer(Modifier.width(8.dp))
         Column {
             Text(npc.name.ifEmpty { "Sin nombre" }, fontWeight = FontWeight.Bold)
-            Text(npc.description ?: "Sin descripción")
+            Text(npc.quote ?: "Sin descripción")
+
         }
     }
 }

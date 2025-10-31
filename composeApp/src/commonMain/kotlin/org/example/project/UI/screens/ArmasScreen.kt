@@ -1,5 +1,6 @@
 package org.example.project.UI.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import org.example.project.UI.viewmodels.ArmasScreenViewModel
 
@@ -16,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.BlendMode.Companion.Color
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -25,6 +27,7 @@ import io.kamel.image.asyncPainterResource
 import org.example.project.domain.classes.Arma
 //import org.example.project.ui.viewmodels.ArmasScreenViewModel
 import org.example.project.UI.composables.ScreenHeader
+import org.example.project.UI.mantequita
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

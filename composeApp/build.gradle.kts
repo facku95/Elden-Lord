@@ -84,6 +84,9 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json.v2311)
 
             implementation("io.coil-kt.coil3:coil-compose:3.0.0-alpha06")
+
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.8.2")
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
         }
 
         val iosMain by creating {

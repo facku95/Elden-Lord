@@ -7,7 +7,7 @@ data class NPC(
     val id: String = "",
     val name: String = "",
     val image: String? = null,
-    val description: String? = null,
+    val quote: String? = "",
     val location: String? = null
 )
 @Serializable

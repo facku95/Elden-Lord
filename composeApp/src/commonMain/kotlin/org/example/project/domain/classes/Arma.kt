@@ -15,12 +15,28 @@ data class Arma(
     val category: String? = null,
     val weight: Double? = null
 )
+fun printAttack(): List<String>{
+    var lista : List<String> = emptyList()
+    //var ataque : List<> =
+
+
+
+
+    return lista
+}
 
 @Serializable
 data class Attack(
     val name: String = "",
     val amount: Int = 0
-)
+){
+    override fun toString(): String {
+        var texto : String = "$name" +": $amount \n"
+
+        return texto
+    }
+
+}
 
 @Serializable
 data class Defence(
