@@ -15,16 +15,11 @@ data class Arma(
     val category: String? = null,
     val weight: Double? = null
 )
-fun printAttack(): List<String>{
-    var lista : List<String> = emptyList()
-    //var ataque : List<> =
 
-
-
-
-    return lista
-}
-
+@Serializable
+data class ArmaDetailResponse(
+    val data: Arma
+)
 @Serializable
 data class Attack(
     val name: String = "",

@@ -8,9 +8,11 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import org.example.project.domain.classes.ListaArmas
 import org.example.project.domain.classes.Arma
+import org.example.project.domain.classes.ArmaDetailResponse
 
 class EldenRingAPI {
 
+    private val BASE_URL : String = "https://eldenring.fanapis.com/api/weapons"
     private val client = HttpClient {
         install(ContentNegotiation) {
             json(Json {
@@ -23,11 +25,24 @@ class EldenRingAPI {
 
     suspend fun getWeapons(): List<Arma> {
         return try {
-            val response: ListaArmas = client.get("https://eldenring.fanapis.com/api/weapons?limit=20").body()
+            val response: ListaArmas = client.get("$BASE_URL?limit=40").body()
             response.data
         } catch (e: Exception) {
             println("DEBUG: Error al obtener armas -> ${e.message}")
             emptyList() // Devuelve lista vacía si falla
         }
     }
+
+    suspend fun getWeaponById(id: String): Arma{
+        return try {
+            val url = "$BASE_URL/$id"
+            val response: ArmaDetailResponse = client.get(url).body()
+            response.data
+
+        } catch (e: Exception){
+            throw e
+        }
+
+    }
+
 }
