@@ -13,8 +13,18 @@ data class Arma(
     val scalesWith: List<Scaling>? = null,
     val requiredAttributes: List<RequiredAttribute>? = null,
     val category: String? = null,
-    val weight: Double? = null
-)
+    val weight: Double? = null,
+    val listaAtaque: MutableList<String> = mutableListOf()
+){
+    fun printAttack() : List<String>{
+        for (i in this.attack!!){
+            this.listaAtaque.add(i.toString())
+        }
+
+        return this.listaAtaque
+
+    }
+}
 
 @Serializable
 data class ArmaDetailResponse(
@@ -26,8 +36,7 @@ data class Attack(
     val amount: Int = 0
 ){
     override fun toString(): String {
-        var texto : String = "$name" +": $amount \n"
-
+        var texto : String = "$name" +": $amount"
         return texto
     }
 

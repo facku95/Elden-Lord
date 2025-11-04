@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import org.example.project.UI.composables.WeaponDetail
+import org.example.project.UI.screens.WeaponDetail
 import org.example.project.UI.screens.HomeScreen
 import org.example.project.UI.screens.ArmasScreen
 import org.example.project.UI.screens.CenizasScreen
@@ -14,13 +14,6 @@ import org.example.project.UI.screens.JefesScreen
 import org.example.project.UI.screens.ItemsScreen
 import org.example.project.UI.screens.MagiasScreen
 import org.example.project.UI.screens.NPCScreen
-import org.example.project.UI.viewmodels.ArmaScreenState
-import org.example.project.UI.viewmodels.ArmasScreenViewModel
-import org.example.project.UI.viewmodels.CenizasScreenViewModel
-import org.example.project.UI.viewmodels.ItemsScreenViewModel
-import org.example.project.UI.viewmodels.JefesScreenViewModel
-import org.example.project.UI.viewmodels.MagiasScreenViewModel
-import org.example.project.UI.viewmodels.NPCScreenViewModel
 import org.example.project.UI.viewmodels.appModule
 import org.koin.compose.KoinApplication
 
